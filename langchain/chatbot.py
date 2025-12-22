@@ -13,6 +13,7 @@ while True:
 
     if user_input.lower() in ["exit", "quit", "bye"]:
         print("Bot: Bye!")
+        break
 
     response = conversation.predict(input=user_input)
     print(f"Bot: {response}")
