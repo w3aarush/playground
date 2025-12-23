@@ -3,6 +3,7 @@ def chatbot():
     import pandas as pd
     import numpy as np
     from sentence_transformers import SentenceTransformer
+    from sentence_transformers import util
     # --------------Loading Data----------------------------------------
     data = pd.read_csv('./chatdata.csv')    # reading the chat data
     
@@ -15,13 +16,13 @@ def chatbot():
     input_embeddings = model.encode(user_input)
 
     # ---------------Similarity Function-------------------------------------
-    def cosine_similarity(a, b):
-        return np.dot(a, b)/(np.linalg.norm(a) * np.linalg.norm(b))
+    # def cosine_similarity(a, b):
+    #     return np.dot(a, b)/(np.linalg.norm(a) * np.linalg.norm(b))
 
-    '''
-    i1 = list(enumerate(user_input))    # indexing the user_input
-    r1 = list(enumerate(response_msg))  #indexing the response_msg
-    '''
+    
+    # i1 = list(enumerate(user_input))    # indexing the user_input
+    # r1 = list(enumerate(response_msg))  #indexing the response_msg
+
 
     while True:
         message = input('user: -> ')    # taking user input
@@ -40,18 +41,24 @@ def chatbot():
 
         # finding similarity
         similarities = [
-            cosine_similarity(message_embedding, emb)
+            util.pytorch_cos_sim(message_embedding, emb)
             for emb in input_embeddings
         ]
+
+        # similarities2 = util.semantic_search(
+        #     query_embeddings=message_embedding,
+        #     corpus_embeddings=input_embeddings,
+        #     top_k=1
+        # )
 
         best_match_index = np.argmax(similarities)
         best_score = similarities[best_match_index]
 
         # ---------------threshold decision-------------------------------------
-        THRESHOLD = 0.75
+        THRESHOLD = 0.5
 
         if best_score >= THRESHOLD:
-            print(f"bot: => {response_msg[best_match_index]} (sim={best_score:.2f})")
+            print(f"bot: => {response_msg[best_match_index]} (sim={best_score.tolist()[0][0]:.2f})")
 
         else:
             print("Sorry, didn't get that")
@@ -68,8 +75,8 @@ def chatbot():
 
             print("thanks buddy, now I know. Try asking my again.")
             continue
-
-        '''text_num = None
+'''
+        text_num = None
         if message in user_input:
             for num, text in i1:
                 if text==message:
@@ -87,5 +94,5 @@ def chatbot():
         for num, text in r1:
             if num == text_num:
                 print(f'bot: => {text}')
-        '''
+'''
 chatbot()
