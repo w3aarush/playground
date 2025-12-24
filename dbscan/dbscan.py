@@ -24,3 +24,4 @@ df2 = pd.DataFrame(collection,columns=indx,index=indx)
 df3 = pd.concat([df,df2],axis=1)
 
 df3.to_csv('euclidian_distance.csv')
+print(df3)
