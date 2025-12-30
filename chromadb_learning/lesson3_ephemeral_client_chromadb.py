@@ -10,22 +10,22 @@ collection.upsert(
     documents=[
         'My name is Aarush Singh.',
         'I am learning data science.',
-        "I belong to Bihar, India.",
-        "I live in Patna."
+        "I belong to localhost, India.",
+        "I live in 127.0.0.1"
     ],
     ids=['id1','id2','id3','id4'],
     metadatas=[
         {'aim':'learn vector databse handling using chromadb'},
-        {'location':'patna'},
+        {'location':'localhost'},
         {'year':2025},
-        {'college':'mca under patna university'}
+        {'college':'mca under localhost university'}
     ]
 )
 
 collection2.upsert(
     documents=[
-        'My name is Rahul Kumar.',
-        'I live in Sheikhpura, Bihar, India.',
+        'My name is user_2017.',
+        'I live in localhost, 127.0.0.1, India.',
         'I am studying in 3rd standard.',
         'I like to draw and paint.'
     ],
@@ -34,8 +34,8 @@ collection2.upsert(
 
 collection3.upsert(
     documents=[
-        'My name is Abhishek Arya.',
-        'I live in Patna, India.',
+        'My name is sketch.',
+        'I live in localhost, India.',
         'I study in LMC.',
         'I am 14 years old.'
     ],

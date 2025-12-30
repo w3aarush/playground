@@ -22,7 +22,7 @@ print("+++"*60)
 
 collection.upsert( # updates the existing ones or inserts if doesn't exist
     documents=[
-        'I live in Patna.',
+        'I live in localhost.',
         'I am aspiring data scientist.'
     ],
     ids = ['id3','id4']
