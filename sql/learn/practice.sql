@@ -134,3 +134,8 @@ order by city;
 select city, country from customers where country='Germany' union all select city, country from suppliers where country='Germany' order by City;
 
 select country, count(customerid) as 'number of customers' from customers group by country;
+select country, count(customerid) as 'Number of Customers' from customers group by country order by count(customerid) desc;
+select shippers.shippername, count(orders.orderid) as 'Number of Orders' from orders left join shippers on orders.shipperid = shippers.shipperid group by shippername;
+
+select country, count(customerid) as 'number of customers' from customers group by country having count(customerid) > 5 order by count(customerid) desc;
+select employees.lastname, count(orders.orderid) as numberOfOrders from (orders inner join employees on orders.EmployeeID = Employees.employeeid) group by lastname having count(orders.orderid) > 10;
