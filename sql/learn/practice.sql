@@ -139,3 +139,52 @@ select shippers.shippername, count(orders.orderid) as 'Number of Orders' from or
 
 select country, count(customerid) as 'number of customers' from customers group by country having count(customerid) > 5 order by count(customerid) desc;
 select employees.lastname, count(orders.orderid) as numberOfOrders from (orders inner join employees on orders.EmployeeID = Employees.employeeid) group by lastname having count(orders.orderid) > 10;
+
+select suppliername from suppliers where exists (select productname from products where products.supplierID = suppliers.supplierID and Price < 20);
+select suppliername from suppliers where exists (select productname from products where products.supplierid = suppliers.supplierid and price = 22);
+select productname from products where productid = any(select productid from orderdetails where quantity = 10);
+select productname from products where productid = any(select productid from orderdetails where quantity > 99);
+select productname from products where productid = all(select productid from orderdetails where quantity = 10);
+
+insert into customers (customername, city, country) select suppliername, city, country from suppliers;
+
+insert into customers select * from suppliers;
+
+select productname, price,
+case
+when price < 20 then 'low cost'
+when price between 20 and 50 then 'medium cost'
+else 'high cost'
+end as priceCategory
+from products;
+
+create database test_db;
+use test_db;
+use northwind;
+drop database test_db;
+show databases;
+
+create database test_db;
+use test_db;
+create table Persons(
+PersonID int PRIMARY KEY,
+FirstName varchar(255) not null,
+LastName varchar(255) not null,
+Address varchar(255),
+City varchar(255)
+);
+
+insert into Persons(PersonID, FirstName, Lastname, Address, City)
+values
+(01, 'Aarush', 'Singh', 'West R.K Nagar', 'Patna'),
+(02, 'Rahul', 'Kumar', 'Khandpar', 'Sheikhpura');
+
+select * from Persons;
+insert into Persons
+values (03, 'Rahul', 'Mahto', 'Pipra', 'Patna');
+
+select * from Persons;
+alter table persons
+add email varchar(255);
+
+select * from persons;
